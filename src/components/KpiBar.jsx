@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 const KPI_CONFIG = [
-  { key: 'networkThermometer', label: 'Network Thermometer', icon: '🌡️', isTemp: true },
-  { key: 'contactsToday', label: 'Contacts Today', icon: '👥', isTemp: false },
-  { key: 'newContent', label: 'New Content Created', icon: '✍️', isTemp: false },
-  { key: 'dealsClosed', label: 'Total Deals Closed', icon: '🤝', isTemp: false },
-  { key: 'funnelTemp', label: 'Funnel Temperature', icon: '🔥', isTemp: true },
+  { key: 'networkThermometer', label: 'Network Thermometer', isTemp: true },
+  { key: 'contactsToday', label: 'Contacts Today', isTemp: false },
+  { key: 'newContent', label: 'New Content Created', isTemp: false },
+  { key: 'dealsClosed', label: 'Total Deals Closed', isTemp: false },
+  { key: 'funnelTemp', label: 'Funnel Temperature', isTemp: true },
 ]
 
 function tempColor(val) {
@@ -32,7 +32,6 @@ function KpiCard({ config, value, onChange }) {
 
   return (
     <div className="bg-white rounded-card px-4 py-3 flex items-center gap-3 flex-1 min-w-[160px] shadow-sm">
-      <span className="text-2xl flex-shrink-0">{config.icon}</span>
       <div className="flex-1 min-w-0">
         <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider leading-tight whitespace-normal break-words">
           {config.label}

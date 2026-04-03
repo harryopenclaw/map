@@ -46,7 +46,7 @@ export default function Card({ card, onUpdate, onDelete }) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`${colors.bg} ${colors.border} border-l-4 rounded-card p-3 cursor-grab active:cursor-grabbing group`}
+      className={`${colors.border} border-l-4 bg-white rounded-card p-3 cursor-grab active:cursor-grabbing group shadow-sm`}
       {...attributes}
       {...listeners}
     >
@@ -66,11 +66,11 @@ export default function Card({ card, onUpdate, onDelete }) {
                 }
               }}
               onPointerDown={(e) => e.stopPropagation()}
-              className="w-full bg-white/50 rounded px-1.5 py-0.5 text-sm font-semibold text-gray-800 outline-none border border-white/60 focus:border-gray-400"
+              className="w-full bg-gray-50 rounded px-1.5 py-0.5 text-sm font-semibold text-gray-800 outline-none border border-gray-200 focus:border-gray-400"
             />
           ) : (
             <p
-              className="text-sm font-semibold text-gray-800 cursor-text truncate"
+              className="text-sm font-semibold text-gray-800 cursor-text leading-snug line-clamp-2"
               onPointerDown={(e) => e.stopPropagation()}
               onClick={() => {
                 setDraft(card.title)
@@ -87,15 +87,15 @@ export default function Card({ card, onUpdate, onDelete }) {
           <button
             onPointerDown={(e) => e.stopPropagation()}
             onClick={() => onUpdate({ ...card, color: getNextColor(card.color) })}
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-white/40 text-gray-600 text-xs"
-            title="Change color"
+            className="w-5 h-5 rounded flex items-center justify-center hover:bg-gray-100 text-gray-400 hover:text-gray-600 text-xs font-bold"
+            title="Change colour"
           >
-            🎨
+            ◑
           </button>
           <button
             onPointerDown={(e) => e.stopPropagation()}
             onClick={() => onDelete(card.id)}
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-white/40 text-gray-600 text-xs"
+            className="w-5 h-5 rounded flex items-center justify-center hover:bg-gray-100 text-gray-400 hover:text-gray-600 text-xs font-bold"
             title="Delete card"
           >
             ✕

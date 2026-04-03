@@ -3,17 +3,17 @@ import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import Card from './Card'
 
-const HEADER_COLORS = [
-  'bg-[#8B3A62]',
-  'bg-[#E91E8C]',
-  'bg-gradient-to-r from-[#F28B6D] to-[#F5A962]',
-  'bg-[#2A9D8F]',
-  'bg-[#6C4AB6]',
-  'bg-[#F59E0B]',
+const PILL_COLORS = [
+  { pill: 'bg-[#f3e6ed] text-[#8B3A62]', dot: 'bg-[#8B3A62]' },
+  { pill: 'bg-[#fde8f4] text-[#c2185b]', dot: 'bg-[#E91E8C]' },
+  { pill: 'bg-[#fef0e8] text-[#c2620a]', dot: 'bg-[#F28B6D]' },
+  { pill: 'bg-[#e2f5f2] text-[#1a7068]', dot: 'bg-[#2A9D8F]' },
+  { pill: 'bg-[#ede8f8] text-[#4a3080]', dot: 'bg-[#6C4AB6]' },
+  { pill: 'bg-[#fef6e0] text-[#92620a]', dot: 'bg-[#F59E0B]' },
 ]
 
 export function getHeaderColor(index) {
-  return HEADER_COLORS[index % HEADER_COLORS.length]
+  return PILL_COLORS[index % PILL_COLORS.length]
 }
 
 export default function Column({ column, index, onAddCard, onUpdateCard, onDeleteCard, onRenameColumn, onDeleteColumn }) {
@@ -24,7 +24,7 @@ export default function Column({ column, index, onAddCard, onUpdateCard, onDelet
 
   const { setNodeRef, isOver } = useDroppable({ id: column.id })
 
-  const headerColor = getHeaderColor(index)
+  const pillStyle = getHeaderColor(index)
 
   function submitCard() {
     const trimmed = newTitle.trim()
@@ -50,41 +50,44 @@ export default function Column({ column, index, onAddCard, onUpdateCard, onDelet
   return (
     <div className="flex flex-col bg-white/60 backdrop-blur-sm rounded-col w-[300px] min-w-[300px] max-h-full">
       {/* Header */}
-      <div className={`${headerColor} rounded-t-col px-4 py-3 flex items-center justify-between`}>
-        {editingName ? (
-          <input
-            autoFocus
-            value={nameDraft}
-            onChange={(e) => setNameDraft(e.target.value)}
-            onBlur={commitName}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') commitName()
-              if (e.key === 'Escape') {
+      <div className="bg-white rounded-t-col px-3 py-3 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${pillStyle.dot}`} />
+          {editingName ? (
+            <input
+              autoFocus
+              value={nameDraft}
+              onChange={(e) => setNameDraft(e.target.value)}
+              onBlur={commitName}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') commitName()
+                if (e.key === 'Escape') {
+                  setNameDraft(column.title)
+                  setEditingName(false)
+                }
+              }}
+              className={`${pillStyle.pill} font-bold text-sm rounded-full px-3 py-0.5 outline-none w-full`}
+            />
+          ) : (
+            <span
+              className={`${pillStyle.pill} font-bold text-sm rounded-full px-3 py-0.5 cursor-pointer truncate`}
+              onClick={() => {
                 setNameDraft(column.title)
-                setEditingName(false)
-              }
-            }}
-            className="bg-white/20 text-white font-bold text-sm rounded px-2 py-0.5 outline-none placeholder-white/60 w-full mr-2"
-          />
-        ) : (
-          <h3
-            className="text-white font-bold text-sm tracking-wide cursor-pointer truncate"
-            onClick={() => {
-              setNameDraft(column.title)
-              setEditingName(true)
-            }}
-          >
-            {column.title}
-          </h3>
-        )}
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="bg-white/25 text-white text-xs font-bold px-2.5 py-0.5 rounded-full backdrop-blur-sm">
+                setEditingName(true)
+              }}
+            >
+              {column.title}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2 shrink-0 ml-2">
+          <span className="bg-gray-100 text-gray-500 text-xs font-bold px-2 py-0.5 rounded-full">
             {column.cards.length}
           </span>
           {onDeleteColumn && (
             <button
               onClick={() => onDeleteColumn(column.id)}
-              className="text-white/60 hover:text-white text-sm transition-colors"
+              className="text-gray-300 hover:text-gray-500 text-sm transition-colors"
               title="Delete column"
             >
               ✕
