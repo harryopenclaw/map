@@ -31,10 +31,10 @@ function KpiCard({ config, value, onChange }) {
   }
 
   return (
-    <div className="bg-white rounded-card px-4 py-3 flex items-center gap-3 min-w-[180px] shadow-sm">
-      <span className="text-2xl">{config.icon}</span>
+    <div className="bg-white rounded-card px-4 py-3 flex items-center gap-3 flex-1 min-w-[160px] shadow-sm">
+      <span className="text-2xl flex-shrink-0">{config.icon}</span>
       <div className="flex-1 min-w-0">
-        <p className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider leading-tight truncate">
+        <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider leading-tight whitespace-normal break-words">
           {config.label}
         </p>
         {editing ? (
@@ -74,7 +74,7 @@ export default function KpiBar({ kpis, setKpis }) {
 
   return (
     <div className="px-6 py-3">
-      <div className="flex gap-3 overflow-x-auto pb-1">
+      <div className="flex gap-3 overflow-x-auto pb-1 w-full">
         {KPI_CONFIG.map((cfg) => (
           <KpiCard
             key={cfg.key}

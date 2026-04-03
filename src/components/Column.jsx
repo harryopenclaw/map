@@ -48,7 +48,7 @@ export default function Column({ column, index, onAddCard, onUpdateCard, onDelet
   const cardIds = column.cards.map((c) => c.id)
 
   return (
-    <div className="flex flex-col bg-white/60 backdrop-blur-sm rounded-col w-[280px] min-w-[280px] max-h-full">
+    <div className="flex flex-col bg-white/60 backdrop-blur-sm rounded-col w-[300px] min-w-[300px] max-h-full">
       {/* Header */}
       <div className={`${headerColor} rounded-t-col px-4 py-3 flex items-center justify-between`}>
         {editingName ? (
