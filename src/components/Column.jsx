@@ -4,12 +4,12 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import Card from './Card'
 
 const PILL_COLORS = [
-  { pill: 'bg-[#f3e6ed] text-[#8B3A62]', dot: 'bg-[#8B3A62]' },
-  { pill: 'bg-[#fde8f4] text-[#c2185b]', dot: 'bg-[#E91E8C]' },
-  { pill: 'bg-[#fef0e8] text-[#c2620a]', dot: 'bg-[#F28B6D]' },
-  { pill: 'bg-[#e2f5f2] text-[#1a7068]', dot: 'bg-[#2A9D8F]' },
-  { pill: 'bg-[#ede8f8] text-[#4a3080]', dot: 'bg-[#6C4AB6]' },
-  { pill: 'bg-[#fef6e0] text-[#92620a]', dot: 'bg-[#F59E0B]' },
+  { header: 'bg-[#8B3A62]', pill: 'bg-[#f3e6ed] text-[#8B3A62]', dot: 'bg-[#8B3A62]' },
+  { header: 'bg-[#E91E8C]', pill: 'bg-[#fde8f4] text-[#c2185b]', dot: 'bg-[#E91E8C]' },
+  { header: 'bg-gradient-to-r from-[#F28B6D] to-[#F5A962]', pill: 'bg-[#fef0e8] text-[#c2620a]', dot: 'bg-[#F28B6D]' },
+  { header: 'bg-[#2A9D8F]', pill: 'bg-[#e2f5f2] text-[#1a7068]', dot: 'bg-[#2A9D8F]' },
+  { header: 'bg-[#6C4AB6]', pill: 'bg-[#ede8f8] text-[#4a3080]', dot: 'bg-[#6C4AB6]' },
+  { header: 'bg-[#F59E0B]', pill: 'bg-[#fef6e0] text-[#92620a]', dot: 'bg-[#F59E0B]' },
 ]
 
 export function getHeaderColor(index) {
@@ -50,9 +50,9 @@ export default function Column({ column, index, onAddCard, onUpdateCard, onDelet
   return (
     <div className="flex flex-col bg-white/60 backdrop-blur-sm rounded-col w-[300px] min-w-[300px] max-h-full">
       {/* Header */}
-      <div className="bg-white rounded-t-col px-3 py-3 flex items-center justify-between border-b border-gray-100">
+      <div className={`${pillStyle.header} rounded-t-col px-3 py-3 flex items-center justify-between`}>
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${pillStyle.dot}`} />
+          <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-white/40" />
           {editingName ? (
             <input
               autoFocus
@@ -66,11 +66,11 @@ export default function Column({ column, index, onAddCard, onUpdateCard, onDelet
                   setEditingName(false)
                 }
               }}
-              className={`${pillStyle.pill} font-bold text-sm rounded-full px-3 py-0.5 outline-none w-full`}
+              className="bg-white/20 text-white font-bold text-sm rounded-full px-4 py-1 outline-none w-full placeholder-white/60"
             />
           ) : (
             <span
-              className={`${pillStyle.pill} font-bold text-sm rounded-full px-3 py-0.5 cursor-pointer truncate`}
+              className="bg-white/20 text-white font-bold text-sm rounded-full px-4 py-1 cursor-pointer truncate backdrop-blur-sm"
               onClick={() => {
                 setNameDraft(column.title)
                 setEditingName(true)
@@ -81,13 +81,13 @@ export default function Column({ column, index, onAddCard, onUpdateCard, onDelet
           )}
         </div>
         <div className="flex items-center gap-2 shrink-0 ml-2">
-          <span className="bg-gray-100 text-gray-500 text-xs font-bold px-2 py-0.5 rounded-full">
+          <span className="bg-white/25 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">
             {column.cards.length}
           </span>
           {onDeleteColumn && (
             <button
               onClick={() => onDeleteColumn(column.id)}
-              className="text-gray-300 hover:text-gray-500 text-sm transition-colors"
+              className="text-white/60 hover:text-white text-sm transition-colors"
               title="Delete column"
             >
               ✕
